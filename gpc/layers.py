@@ -378,3 +378,18 @@ def gpcConv2D(last_tensor, filters=32, channel_axis=3, name=None, activation=Non
 def gpcPointwiseConv2D(last_tensor, filters=32, channel_axis=3, name=None, activation=None, has_batch_norm=True, has_batch_scale=True, use_bias=True, gpcType=0):
     return gpcConv2D(last_tensor, filters=filters, channel_axis=channel_axis, name=name, activation=activation, has_batch_norm=has_batch_norm, has_batch_scale=has_batch_scale, use_bias=use_bias, kernel_size=1, stride_size=1, padding='same', gpcType=gpcType)
 
+def GetClasses():
+    """
+    This function returns CAI layer classes.
+    """
+    return {
+        'CopyChannels': CopyChannels,
+        'Negate': Negate,
+        'ConcatNegation': ConcatNegation,
+        'InterleaveChannels': InterleaveChannels,
+        'SumIntoHalfChannels': SumIntoHalfChannels,
+        'HardSigmoid': HardSigmoid,
+        'HardSwish': HardSwish,
+        'hard_sigmoid': HardSigmoid,
+        'hard_swish': HardSwish
+    }

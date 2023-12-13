@@ -1,6 +1,5 @@
 import gpc.layers
 import gpc.util
-import gpc.inception_v3
 from tensorflow import keras
 from tensorflow.keras.models import Model
 from tensorflow.keras.models import model_from_json
@@ -168,81 +167,7 @@ def calculate_heat_map_from_dense_and_avgpool(aInput, target_class, pModel, pOut
         a_heatmap_result = a_heatmap_result / max_heatmap_result
     return a_heatmap_result
 
-    def compiled_full_two_path_inception_v3(
-            input_shape=(224, 224, 3),
-            classes=1000,
-            max_mix_idx=10,
-            model_name='two_path_inception_v3'):
-        """
-        Wrapper for gpc.inception_v3.compiled_two_path_inception_v3 .
-        """
-        return gpc.inception_v3.compiled_two_path_inception_v3(
-            input_shape=input_shape,
-            classes=classes,
-            two_paths_partial_first_block=0,
-            two_paths_first_block=True,
-            two_paths_second_block=True,
-            deep_two_paths=True,
-            deep_two_paths_compression=0.655,
-            max_mix_idx=max_mix_idx,
-            model_name='deep_two_path_inception_v3'
-        )
-
-
-def compiled_inception_v3(
-        input_shape=(224, 224, 3),
-        classes=1000,
-        max_mix_idx=10,
-        model_name='two_path_inception_v3'):
-    """
-    Wrapper for gpc.inception_v3.compiled_two_path_inception_v3 .
-    """
-    return gpc.inception_v3.compiled_two_path_inception_v3(
-        input_shape=input_shape,
-        classes=classes,
-        two_paths_partial_first_block=0,
-        two_paths_first_block=False,
-        two_paths_second_block=False,
-        deep_two_paths=False,
-        max_mix_idx=max_mix_idx,
-        model_name='two_path_inception_v3'
-    )
-
-
-def compiled_two_path_inception_v3(
-        input_shape=(224, 224, 3),
-        classes=1000,
-        two_paths_partial_first_block=0,
-        two_paths_first_block=False,
-        two_paths_second_block=False,
-        deep_two_paths=False,
-        deep_two_paths_compression=0.655,
-        deep_two_paths_bottleneck_compression=0.5,
-        l_ratio=0.5,
-        ab_ratio=0.5,
-        max_mix_idx=10,
-        max_mix_deep_two_paths_idx=-1,
-        model_name='two_path_inception_v3'
-):
-    """
-    Wrapper for gpc.inception_v3.compiled_two_path_inception_v3 .
-    """
-    return gpc.inception_v3.compiled_two_path_inception_v3(
-        input_shape=input_shape,
-        classes=classes,
-        two_paths_partial_first_block=two_paths_partial_first_block,
-        two_paths_first_block=two_paths_first_block,
-        two_paths_second_block=two_paths_second_block,
-        deep_two_paths=deep_two_paths,
-        deep_two_paths_compression=deep_two_paths_compression,
-        deep_two_paths_bottleneck_compression=deep_two_paths_bottleneck_compression,
-        l_ratio=l_ratio,
-        ab_ratio=ab_ratio,
-        max_mix_idx=max_mix_idx,
-        max_mix_deep_two_paths_idx=max_mix_deep_two_paths_idx,
-        model_name=model_name)
-
-
+   
 def create_paths(last_tensor, compression, l2_decay, dropout_rate=0.0):
     """Builds a new path from a previous main branch.
     # Arguments
@@ -260,43 +185,3 @@ def create_paths(last_tensor, compression, l2_decay, dropout_rate=0.0):
     if (dropout_rate > 0): last_tensor = keras.layers.Dropout(dropout_rate)(last_tensor)
     last_tensor = keras.layers.MaxPooling2D(2, strides=2)(last_tensor)
     return last_tensor
-
-
-def two_path_inception_v3(
-        include_top=True,
-        weights=None,  # 'two_paths_plant_leafs'
-        input_shape=(224, 224, 3),
-        pooling=None,
-        classes=1000,
-        two_paths_partial_first_block=0,
-        two_paths_first_block=False,
-        two_paths_second_block=False,
-        deep_two_paths=False,
-        deep_two_paths_compression=0.655,
-        deep_two_paths_bottleneck_compression=0.5,
-        l_ratio=0.5,
-        ab_ratio=0.5,
-        max_mix_idx=10,
-        max_mix_deep_two_paths_idx=-1,
-        model_name='two_path_inception_v3',
-        **kwargs):
-    """
-    Wrapper for gpc.inception_v3.two_path_inception_v3 .
-    """
-    return gpc.inception_v3.two_path_inception_v3(
-        include_top=include_top,
-        weights=weights,  # 'two_paths_plant_leafs'
-        input_shape=input_shape,
-        pooling=pooling,
-        classes=classes,
-        two_paths_partial_first_block=two_paths_partial_first_block,
-        two_paths_first_block=two_paths_first_block,
-        two_paths_second_block=two_paths_second_block,
-        deep_two_paths=deep_two_paths,
-        deep_two_paths_compression=deep_two_paths_compression,
-        deep_two_paths_bottleneck_compression=deep_two_paths_bottleneck_compression,
-        l_ratio=l_ratio,
-        ab_ratio=ab_ratio,
-        max_mix_idx=max_mix_idx,
-        max_mix_deep_two_paths_idx=max_mix_deep_two_paths_idx,
-        model_name=model_name)

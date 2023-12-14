@@ -369,7 +369,6 @@ def rgb2bipolar_lab(img):
     return img
 
 
-# This is the default CAI Image generator with data augmentation
 def create_image_generator(
         featurewise_center=False,  # set input mean to 0 over the dataset
         samplewise_center=False,  # set each sample mean to 0

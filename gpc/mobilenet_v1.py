@@ -543,12 +543,10 @@ def gpcMobileNet(input_shape=None,
 
         x = layers.GlobalAveragePooling2D()(x)
         x = layers.Reshape(shape, name='reshape_1')(x)
-        x = layers.Dropout(dropout, name='dropout')(x)
-        # The last dense layer should not be optimized.
+        x = layers.Dropout(dropout, name='dropout')(x)        
         x = layers.Conv2D(classes, (1, 1),
                           padding='same',
-                          name='conv_preds')(x)
-        # x = gpc.layers.kPointwiseConv2D(x, filters=classes, channel_axis=gpc.layers.GetChannelAxis(), name='conv_preds', activation=None, has_batch_norm=False, use_bias=True, kType=kType)
+                          name='conv_preds')(x)        
         x = layers.Reshape((classes,), name='reshape_2')(x)
         x = layers.Activation('softmax', name='act_softmax')(x)
     else:
